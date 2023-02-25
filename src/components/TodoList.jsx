@@ -38,7 +38,7 @@ const TodoList = () => {
   };
 
   return (
-    <div>
+    <>
       <h1>Whats will do Today bro?? </h1>
       <TodoForm onSubmit={addTodo} />
       <Todo
@@ -47,7 +47,7 @@ const TodoList = () => {
         removeTodo={removeTodo}
         updateTodo={updateTodo}
       />
-    </div>
+    </>
   );
 };
 
