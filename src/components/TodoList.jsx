@@ -1,15 +1,34 @@
-import React, { useState } from "react";
-import Todo from "./Todo";
+import React, { useState, useEffect } from "react";
 import TodoForm from "./TodoForm";
+import Todo from "./Todo";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const interval = setInterval(() => setTime(new Date(), 1000));
+    return () => clearInterval(interval);
+  }, []);
+
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    hour12: false,
+  };
 
   const addTodo = (todo) => {
     if (!todo.text || /^\s*$/.test(todo.text)) {
       return;
     }
+
     const newTodos = [todo, ...todos];
+
     setTodos(newTodos);
   };
 
@@ -17,14 +36,16 @@ const TodoList = () => {
     if (!newValue.text || /^\s*$/.test(newValue.text)) {
       return;
     }
+
     setTodos((prev) =>
       prev.map((item) => (item.id === todoId ? newValue : item))
     );
   };
 
   const removeTodo = (id) => {
-    const removeArr = [...todos].filter((todo) => todo.id !== id);
-    setTodos(removeArr);
+    const removedArr = [...todos].filter((todo) => todo.id !== id);
+
+    setTodos(removedArr);
   };
 
   const completeTodo = (id) => {
@@ -39,7 +60,10 @@ const TodoList = () => {
 
   return (
     <>
-      <h1>Whats will do Today bro?? </h1>
+      <h1 id="title">Whats going on ?</h1>
+      <p id="time">
+        <span>{time.toLocaleTimeString("en-US", options)}</span>
+      </p>
       <TodoForm onSubmit={addTodo} />
       <Todo
         todos={todos}
