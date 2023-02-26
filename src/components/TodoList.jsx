@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TodoForm from "./TodoForm";
 import Todo from "./Todo";
+import Footer from "./Footer";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
@@ -60,7 +61,7 @@ const TodoList = () => {
 
   return (
     <>
-      <h1 id="title">Whats going on ?</h1>
+      <h1 id="title">Mau Apa Hari Ini ?</h1>
       <p id="time">
         <span>{time.toLocaleTimeString("en-US", options)}</span>
       </p>
@@ -71,6 +72,7 @@ const TodoList = () => {
         removeTodo={removeTodo}
         updateTodo={updateTodo}
       />
+      <Footer />
     </>
   );
 };
